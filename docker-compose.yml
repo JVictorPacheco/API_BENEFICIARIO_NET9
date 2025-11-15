@@ -1,0 +1,66 @@
+services:
+  # API .NET 9
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: beneficiario-api
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=beneficiario_db;Username=postgres;Password=postgres
+    depends_on:
+      - postgres
+    volumes:
+      - ./src:/app/src
+    networks:
+      - beneficiario-network
+    restart: unless-stopped
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: beneficiario-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=beneficiario_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - beneficiario-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # pgAdmin - Interface web para PostgreSQL
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: beneficiario-pgadmin
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - beneficiario-network
+    restart: unless-stopped
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-data:
+  pgadmin-data:
+
+networks:
+  beneficiario-network:
+    driver: bridge

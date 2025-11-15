@@ -1,0 +1,23 @@
+# Development Dockerfile com hot reload
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS dev
+WORKDIR /app
+
+# Copy csproj files and restore
+COPY ["src/Api.Beneficiario.Domain/Api.Beneficiario.Domain.csproj", "Api.Beneficiario.Domain/"]
+COPY ["src/Api.Beneficiario.Application/Api.Beneficiario.Application.csproj", "Api.Beneficiario.Application/"]
+COPY ["src/Api.Beneficiario.Infrastructure/Api.Beneficiario.Infrastructure.csproj", "Api.Beneficiario.Infrastructure/"]
+COPY ["src/Api.Beneficiario.WebAPI/Api.Beneficiario.WebAPI.csproj", "Api.Beneficiario.WebAPI/"]
+RUN dotnet restore "Api.Beneficiario.WebAPI/Api.Beneficiario.WebAPI.csproj"
+
+# Copy everything
+COPY src/. .
+
+WORKDIR /app/Api.Beneficiario.WebAPI
+
+EXPOSE 5000
+
+ENV ASPNETCORE_URLS=http://+:5000
+ENV ASPNETCORE_ENVIRONMENT=Development
+
+# Use dotnet watch for hot reload
+CMD ["dotnet", "watch", "run", "--no-launch-profile"]
