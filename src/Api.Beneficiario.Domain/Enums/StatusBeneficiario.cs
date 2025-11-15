@@ -1,6 +1,6 @@
 namespace Api.Beneficiario.Domain.Enums
 {
-    public enum StatusBeneficiarios
+    public enum StatusBeneficiario
     {
         Ativo = 1,
         Inativo = 0,
