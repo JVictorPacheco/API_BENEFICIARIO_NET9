@@ -22,4 +22,15 @@ public interface IBeneficiarioRepository
     Task<IEnumerable<Beneficiario>> ObterBeneficiariosPorStatusAsync(StatusBeneficiario status);
 
     Task<IEnumerable<Beneficiario>> ObterBeneficiariosPorPlanoIdAsync(Guid planoId);
+
+
+    Task<IEnumerable<Beneficiario>> ObterBeneficiarioComFiltrosAsync(
+        StatusBeneficiario? status = null, 
+        Guid? planoId = null
+    );
+
+
+    // Task<bool> ExistePorCPFAsync(string cpf);
+    // Task<bool> ExistePorCPFAsync(string cpf, Guid idExcluir); // Para update
+    // Task<Beneficiario?> ObterPorCPFAsync(string cpf);
 }
