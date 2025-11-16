@@ -3,20 +3,20 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 # Copy csproj files and restore dependencies
-COPY ["src/Api.Beneficiario.Domain/Api.Beneficiario.Domain.csproj", "Api.Beneficiario.Domain/"]
-COPY ["src/Api.Beneficiario.Application/Api.Beneficiario.Application.csproj", "Api.Beneficiario.Application/"]
-COPY ["src/Api.Beneficiario.Infrastructure/Api.Beneficiario.Infrastructure.csproj", "Api.Beneficiario.Infrastructure/"]
-COPY ["src/Api.Beneficiario.WebAPI/Api.Beneficiario.WebAPI.csproj", "Api.Beneficiario.WebAPI/"]
-RUN dotnet restore "Api.Beneficiario.WebAPI/Api.Beneficiario.WebAPI.csproj"
+COPY ["src/Api.Beneficiario.Domain/Api.Beneficiarios.Domain.csproj", "Api.Beneficiarios.Domain/"]
+COPY ["src/Api.Beneficiario.Application/Api.Beneficiarios.Application.csproj", "Api.Beneficiarios.Application/"]
+COPY ["src/Api.Beneficiario.Infrastructure/Api.Beneficiarios.Infrastructure.csproj", "Api.Beneficiarios.Infrastructure/"]
+COPY ["src/Api.Beneficiario.WebAPI/Api.Beneficiarios.WebAPI.csproj", "Api.Beneficiarios.WebAPI/"]
+RUN dotnet restore "Api.Beneficiarios.WebAPI/Api.Beneficiarios.WebAPI.csproj"
 
 # Copy everything else and build
 COPY src/. .
 WORKDIR /src/Api.Beneficiario.WebAPI
-RUN dotnet build "Api.Beneficiario.WebAPI.csproj" -c Release -o /app/build
+RUN dotnet build "Api.Beneficiarios.WebAPI.csproj" -c Release -o /app/build
 
 # Publish stage
 FROM build AS publish
-RUN dotnet publish "Api.Beneficiario.WebAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Api.Beneficiarios.WebAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
@@ -37,4 +37,4 @@ USER appuser
 ENV ASPNETCORE_URLS=http://+:5000
 ENV ASPNETCORE_ENVIRONMENT=Development
 
-ENTRYPOINT ["dotnet", "Api.Beneficiario.WebAPI.dll"]
+ENTRYPOINT ["dotnet", "Api.Beneficiarios.WebAPI.dll"]

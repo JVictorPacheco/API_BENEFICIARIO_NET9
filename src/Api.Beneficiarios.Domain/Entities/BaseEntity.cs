@@ -1,4 +1,4 @@
-namespace Api.Beneficiario.Domain.Entities;
+namespace Api.Beneficiarios.Domain.Entities;
 
 
 public abstract class BaseEntity
@@ -14,7 +14,7 @@ public abstract class BaseEntity
 
     public Guid Id {get; set;}
 
-    public DateTime DataCadastro {get; set;} = DateTime.UtcNow;
+    public DateTime DataCadastro {get; set;};
 
     public DateTime DataAtualizacao {get; set;}
 

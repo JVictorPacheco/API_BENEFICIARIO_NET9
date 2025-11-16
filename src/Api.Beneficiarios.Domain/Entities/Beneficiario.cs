@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using Api.Beneficiario.Domain.Enums;
+using Api.Beneficiarios.Domain.Enums;
 
 
-namespace Api.Beneficiario.Domain.Entities;
+namespace Api.Beneficiarios.Domain.Entities;
 
 
 public class Beneficiario : BaseEntity
@@ -60,7 +60,5 @@ public class Beneficiario : BaseEntity
     {
         return !string.IsNullOrWhiteSpace(CPF) && CPF.Length == 11 && CPF.All(char.IsDigit);
     }
-
-
 
 }
