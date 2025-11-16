@@ -17,12 +17,49 @@ public class Beneficiario : BaseEntity
 
 
     [Required(ErrorMessage = "Datas de Nascimento Obrigatório")]
-    public DateTime DatasNascimento {get; set;}
+    public DateTime DataNascimento {get; set;}
 
     public StatusBeneficiario Status {get; set;} = StatusBeneficiario.Ativo;
 
     [Required(ErrorMessage = "PlanoId Obrigatório")]
     public Guid PlanoId {get; set;}
+
+    public virtual Plano Plano {get; set;}
+
+
+    // METODOS DE VALIDAÇÃO E ALTERAÇÃO DE STATUS
+
+
+    public void Ativar()
+    {
+        if (Excluido)
+            throw new InvalidOperationException("Não é possível ativar um beneficiário excluído.");
+
+        Status = StatusBeneficiario.Ativo;
+    } 
+
+
+    public void Inativar()
+    {
+        Status = StatusBeneficiario.Inativo;
+    }
+
+    public void ExcluirSuavemente()
+    {
+        Excluido = true;
+        DataExclusao = DateTime.UtcNow;
+        Status = StatusBeneficiario.Inativo;
+    }
+
+    public bool PodeUsarPlano()
+    {
+        return Status == StatusBeneficiario.Ativo && !Excluido;
+    }
+
+    public bool CPFValido()
+    {
+        return !string.IsNullOrWhiteSpace(CPF) && CPF.Length == 11 && CPF.All(char.IsDigit);
+    }
 
 
 

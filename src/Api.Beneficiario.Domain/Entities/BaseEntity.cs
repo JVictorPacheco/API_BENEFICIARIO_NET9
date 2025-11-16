@@ -7,7 +7,9 @@ public abstract class BaseEntity
     protected BaseEntity()
     {
         Id = Guid.NewGuid();
+        DataCadastro = DateTime.UtcNow;
         DataAtualizacao = DateTime.UtcNow;
+        
     }
 
     public Guid Id {get; set;}
