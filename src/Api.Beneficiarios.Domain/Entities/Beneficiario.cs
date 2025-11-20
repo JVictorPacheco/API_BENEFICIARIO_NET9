@@ -8,7 +8,7 @@ namespace Api.Beneficiarios.Domain.Entities;
 public class Beneficiario : BaseEntity
 {
     [Required(ErrorMessage = "Nome Obrigatório")]
-    public string NomeCompleto {get; set;}
+    public string Nome {get; set;}
 
 
     [Required(ErrorMessage = "CPF Obrigatório")]
