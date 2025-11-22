@@ -5,7 +5,7 @@ namespace Api.Beneficiarios.Infrastructure.Data;
 
 public class AppDbContext : DbContext
 {
-    public AppDbContext(DbConextOptions<AppDbContext> options) : base(options)
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
 
@@ -22,7 +22,7 @@ public class AppDbContext : DbContext
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
-        modelBuilder.Entity<Beneficiarios>().HasQueryFilter(b => !b.Excluido);
+        modelBuilder.Entity<Beneficiario>().HasQueryFilter(b => !b.Excluido);
 
         modelBuilder.Entity<Plano>().HasQueryFilter(p => !p.Excluido);
     }
@@ -43,7 +43,7 @@ public class AppDbContext : DbContext
     /// <summary>
     /// Sobrescreve SaveChangesAsync para atualizar timestamps automaticamente
     /// </summary>
-    public override async Task<int> SavedChangesAsync(CancellationToken cancellationToken = default)
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         AtualizarTimestamps();
         return await base.SaveChangesAsync(cancellationToken);
@@ -53,10 +53,10 @@ public class AppDbContext : DbContext
     /// <summary>
     /// Atualiza automaticamente DataAtualizacao em todas as entidades modificadas
     /// </summary>
-    public void AtualizarTimestamps()
+    private void AtualizarTimestamps()
     {
         var entries = ChangeTracker.Entries()
-            .Where(entries => entries.Entity is BaseEntity && (e.State == EntityState.Added || e.State == EntityState.Modified));
+            .Where(e => e.Entity is BaseEntity && (e.State == EntityState.Added || e.State == EntityState.Modified));
 
 
         foreach (var entry in entries)
@@ -64,7 +64,7 @@ public class AppDbContext : DbContext
             var entity = (BaseEntity)entry.Entity;
 
 
-            if (entry.State == entityState.Added)
+            if (entry.State == EntityState.Added)
             {
                 if (entity.DataCadastro == default)
                     entity.DataCadastro = DateTime.UtcNow;
