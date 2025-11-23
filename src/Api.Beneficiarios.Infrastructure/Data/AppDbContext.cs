@@ -28,11 +28,6 @@ public class AppDbContext : DbContext
     }
 
 
-   // ========== SaveChanges Override (Atualiza DataAtualizacao automaticamente) ==========
-
-    /// <summary>
-    /// Sobrescreve SaveChanges para atualizar timestamps automaticamente
-    /// </summary>
     public override int SaveChanges()
     {
         AtualizarTimestamps();
@@ -40,19 +35,14 @@ public class AppDbContext : DbContext
     }
 
 
-    /// <summary>
-    /// Sobrescreve SaveChangesAsync para atualizar timestamps automaticamente
-    /// </summary>
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         AtualizarTimestamps();
         return await base.SaveChangesAsync(cancellationToken);
     }
 
 
-    /// <summary>
-    /// Atualiza automaticamente DataAtualizacao em todas as entidades modificadas
-    /// </summary>
+    
     private void AtualizarTimestamps()
     {
         var entries = ChangeTracker.Entries()
@@ -70,7 +60,7 @@ public class AppDbContext : DbContext
                     entity.DataCadastro = DateTime.UtcNow;
             }
 
-            // SEMPRE atualiza DataAtualizacao em qualquer mudança
+            
             entity.DataAtualizacao = DateTime.UtcNow;
 
         }

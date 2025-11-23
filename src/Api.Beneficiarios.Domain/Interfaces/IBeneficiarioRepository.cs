@@ -29,9 +29,7 @@ public interface IBeneficiarioRepository
         Guid? planoId = null
     );
 
-
     Task<bool> ExisteBeneficiarioPorCPFAsync(string cpf);
     
-    // Task<bool> ExistePorCPFAsync(string cpf, Guid idExcluir); // Para update
     Task<Beneficiario?> ObterBeneficiarioPorCPFAsync(string cpf);
 }

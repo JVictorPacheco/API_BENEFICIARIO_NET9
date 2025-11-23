@@ -3,10 +3,6 @@ using Api.Beneficiarios.Application.DTOs.Beneficiario;
 
 namespace Api.Beneficiarios.Application.Services.Interfaces;
 
-/// <summary>
-/// Interface do serviço de Beneficiário.
-/// Define as operações disponíveis para gerenciar beneficiários.
-/// </summary>
 public interface IBeneficiarioService
 {
     Task<BeneficiarioResponseDto> CriarBeneficiariosAsync(CreateBeneficiarioDto dto);

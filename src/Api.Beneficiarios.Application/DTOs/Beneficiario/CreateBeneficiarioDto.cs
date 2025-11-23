@@ -4,10 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Api.Beneficiarios.Application.DTOs.Beneficiario;
 
 
-/// <summary>
-/// DTO para criação de um novo beneficiário.
-/// Contém apenas os campos necessários para cadastro.
-/// </summary>
+
 public class CreateBeneficiarioDto 
 {
 

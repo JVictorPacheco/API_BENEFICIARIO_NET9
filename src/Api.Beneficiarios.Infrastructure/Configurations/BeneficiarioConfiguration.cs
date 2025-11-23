@@ -6,23 +6,15 @@ using Api.Beneficiarios.Domain.Enums;
 
 namespace Api.Beneficiarios.Infrastructure.Configurations;
 
-
-/// <summary>
-/// Configuração da entidade Beneficiario para o Entity Framework
-/// Define mapeamento de tabela, colunas, índices e relacionamentos
-/// </summary>
 public class BeneficiarioConfiguration : IEntityTypeConfiguration<Beneficiario>
 {
     public void Configure(EntityTypeBuilder<Beneficiario> builder)
     {
 
-        // ===== Tabela =====
+        
         builder.ToTable("Beneficiarios");
-
-                // ===== Chaves primarias =====
+             
                 builder.HasKey(b => b.Id);
-
-                // ========== PROPRIEDADES (COLUNAS) ==========
 
                 builder.Property(b => b.Id)
                     .HasColumnName("Id")
@@ -40,13 +32,13 @@ public class BeneficiarioConfiguration : IEntityTypeConfiguration<Beneficiario>
 
                 builder.Property(b => b.DataNascimento)
                     .HasColumnName("DataNascimento")
-                    .HasColumnType("date") //Apenas data, sem hora
+                    .HasColumnType("date") 
                     .IsRequired();
 
 
                 builder.Property(b => b.Status)
                     .HasColumnName("Status")
-                    .HasConversion<int>() // Armazenar enum como int
+                    .HasConversion<int>() 
                     .IsRequired();
 
                 builder.Property(b => b.PlanoId)
@@ -55,60 +47,53 @@ public class BeneficiarioConfiguration : IEntityTypeConfiguration<Beneficiario>
 
                 builder.Property(b => b.DataCadastro)
                     .HasColumnName("DataCadastro")
-                    .HasColumnType("timestamptz") //Data e hora com timezone
+                    .HasColumnType("timestamptz") 
                     .IsRequired();
 
                 builder.Property(b => b.DataAtualizacao)
                     .HasColumnName("DataAtualizacao")
-                    .HasColumnType("timestamptz") //Data e hora com timezone
+                    .HasColumnType("timestamptz") 
                     .IsRequired();
 
 
                 builder.Property(b => b.Excluido)
                     .HasColumnName("Excluido")
-                    .HasDefaultValue(false) // Valor padrão no banco
+                    .HasDefaultValue(false) 
                     .IsRequired();
 
                 builder.Property(b => b.DataExclusao)
                     .HasColumnName("DataExclusao")
-                    .HasColumnType("timestamptz") //Data e hora com timezone
-                    .IsRequired(false); // Pode ser nulo
+                    .HasColumnType("timestamptz") 
+                    .IsRequired(false); 
 
 
 
-                // ========== ÍNDICES ==========
-
-
-                //Indice único no CPF
                 builder.HasIndex(b => b.CPF)
                     .IsUnique()
                     .HasDatabaseName("IX_Beneficiarios_CPF");
 
-                //Indice no PlanoId para otimizar consultas por plano
+                
                 builder.HasIndex(b => b.PlanoId)
                     .HasDatabaseName("IX_Beneficiarios_PlanoId"); 
 
-                // Índice no Status (melhora performance de filtros)
+               
                 builder.HasIndex(b => b.Status)
                     .HasDatabaseName("IX_Beneficiarios_Status");    
 
-                // Índice composto Status + PlanoId (para filtros combinados)
+                
                 builder.HasIndex(b => new {b.Status, b.PlanoId})
                     .HasDatabaseName("IX_Beneficiarios_Status_PlanoId");
 
 
-                // Índice no Excluido (para query filter de soft delete)
+                
                 builder.HasIndex(b => b.Excluido)
                     .HasDatabaseName("IX_Beneficiarios_Excluido");
 
 
-                // ========== RELACIONAMENTOS ==========
-
-                //Relacionamento com plano (FK PlanoId) 1:N
                 builder.HasOne(b => b.Plano)
                     .WithMany(p => p.Beneficiarios)
-                    .HasForeignKey(b => b.PlanoId) // Chave estrangeira
-                    .OnDelete(DeleteBehavior.Restrict) // Impede exclusão em cascata
+                    .HasForeignKey(b => b.PlanoId) 
+                    .OnDelete(DeleteBehavior.Restrict) 
                     .HasConstraintName("FK_Beneficiarios_Planos");
     }
 }

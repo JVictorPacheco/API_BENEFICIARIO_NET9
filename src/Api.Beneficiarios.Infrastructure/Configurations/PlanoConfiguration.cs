@@ -4,23 +4,16 @@ using Api.Beneficiarios.Domain.Entities;
 
 namespace Api.Beneficiarios.Infrastructure.Configurations;
 
-/// <summary>
-/// Configuração da entidade Plano para o Entity Framework
-/// Define mapeamento de tabela, colunas, índices e relacionamentos
-/// </summary>
 public class PlanoConfiguration : IEntityTypeConfiguration<Plano>
 {
     public void Configure(EntityTypeBuilder<Plano> builder)
     {
-        // ========== TABELA ==========
+       
         
         builder.ToTable("Planos");
 
-        // ========== CHAVE PRIMÁRIA ==========
         
         builder.HasKey(p => p.Id);
-
-        // ========== PROPRIEDADES (COLUNAS) ==========
 
         builder.Property(p => p.Id)
             .HasColumnName("Id")
@@ -39,7 +32,7 @@ public class PlanoConfiguration : IEntityTypeConfiguration<Plano>
         builder.Property(p => p.StatusPlano)
             .HasColumnName("StatusPlano")
             .IsRequired()
-            .HasDefaultValue(true); // Valor padrão no banco
+            .HasDefaultValue(true); 
 
         builder.Property(p => p.DataCadastro)
             .HasColumnName("DataCadastro")
@@ -59,35 +52,33 @@ public class PlanoConfiguration : IEntityTypeConfiguration<Plano>
         builder.Property(p => p.DataExclusao)
             .HasColumnName("DataExclusao")
             .HasColumnType("timestamptz")
-            .IsRequired(false); // Nullable
+            .IsRequired(false); 
 
-        // ========== ÍNDICES ==========
-
-        // Índice único no Nome (regra: nome único no sistema)
+        
         builder.HasIndex(p => p.NomePlano)
             .IsUnique()
-            .HasDatabaseName("IX_Planos_Nome"); // Nome do índice no banco
+            .HasDatabaseName("IX_Planos_Nome"); 
 
-        // Índice único no CodigoRegistroANS (regra: código ANS único)
-        builder.HasIndex(p => p.CodRegistroAns) //
+        
+        builder.HasIndex(p => p.CodRegistroAns) 
             .IsUnique()
             .HasDatabaseName("IX_Planos_CodRegistroANS");
 
-        // Índice no StatusPlano (para filtros)
+        
         builder.HasIndex(p => p.StatusPlano)
             .HasDatabaseName("IX_Planos_StatusPlano");
 
-        // Índice no Excluido (para query filter de soft delete)
+        
         builder.HasIndex(p => p.Excluido)
             .HasDatabaseName("IX_Planos_Excluido");
 
-        // ========== RELACIONAMENTOS ==========
+        
 
-        // Relacionamento com Beneficiarios (1:N)
-        builder.HasMany(p => p.Beneficiarios) // Coleção de Beneficiários
-            .WithOne(b => b.Plano) // Navegação inversa
-            .HasForeignKey(b => b.PlanoId) // Chave estrangeira em Beneficiario
-            .OnDelete(DeleteBehavior.Restrict) // Não permite deletar Plano se tiver Beneficiários
-            .HasConstraintName("FK_Beneficiarios_Planos"); // Nome da FK no banco
+        
+        builder.HasMany(p => p.Beneficiarios) 
+            .WithOne(b => b.Plano) 
+            .HasForeignKey(b => b.PlanoId) 
+            .OnDelete(DeleteBehavior.Restrict) 
+            .HasConstraintName("FK_Beneficiarios_Planos"); 
     }
 }

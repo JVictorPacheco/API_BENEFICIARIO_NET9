@@ -27,8 +27,6 @@ public class Beneficiario : BaseEntity
     public virtual Plano Plano {get; set;}
 
 
-    // METODOS DE VALIDAÇÃO E ALTERAÇÃO DE STATUS
-
 
     public void Ativar()
     {
