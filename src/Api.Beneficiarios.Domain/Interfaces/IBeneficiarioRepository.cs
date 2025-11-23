@@ -1,27 +1,27 @@
-using Api.Beneficiario.Domain.Entities;
-using Api.Beneficiario.Domain.Enums;
+using Api.Beneficiarios.Domain.Entities;
+using Api.Beneficiarios.Domain.Enums;
 
 
-namespace Api.Beneficiario.Domain.Interfaces;
+namespace Api.Beneficiarios.Domain.Interfaces;
 
 
 public interface IBeneficiarioRepository
 {
-    Task<Beneficiario> AdicionaBeneficiarioAsync(Beneficiario beneficiario);
+    Task<Beneficiario> AdicionarBeneficiarioAsync(Beneficiario beneficiario);
 
-    Task<Beneficiario> AtualizaBeneficiarioAsync(Beneficiario beneficiario);
+    Task<Beneficiario> AtualizarBeneficiarioAsync(Beneficiario beneficiario);
 
-    Task<bool> RomoverBeneciarioAsync(Guid beneficiarioId);
+    Task<bool> ExcluirBeneficiarioAsync(Guid beneficiarioId);
 
-    Task<bool> RemoverSuaveBeneficiarioAsync(Guid beneficiarioId);
+    Task<bool> ExcluirBeneficiarioSuavementeAsync(Guid beneficiarioId);
 
-    Task<Beneficiario> ObterBeneficiarioPorIdAsync(Guid beneficiarioId);
+    Task<Beneficiario?> ObterBeneficiarioPorIdAsync (Guid beneficiarioId);
 
     Task<IEnumerable<Beneficiario>> ObterTodosBeneficiariosAsync();
 
-    Task<IEnumerable<Beneficiario>> ObterBeneficiariosPorStatusAsync(StatusBeneficiario status);
+    Task<IEnumerable<Beneficiario>> ObterBeneficiarioPorStatusAsync(StatusBeneficiario status);
 
-    Task<IEnumerable<Beneficiario>> ObterBeneficiariosPorPlanoIdAsync(Guid planoId);
+    Task<IEnumerable<Beneficiario>> ObterBeneficiarioPorPlanoIdAsync(Guid planoId);
 
 
     Task<IEnumerable<Beneficiario>> ObterBeneficiarioComFiltrosAsync(

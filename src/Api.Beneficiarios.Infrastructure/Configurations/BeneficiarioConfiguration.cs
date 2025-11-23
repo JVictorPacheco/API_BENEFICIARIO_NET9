@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Api.Beneficiarios.Domain.Enums;
 
 
-namespace Api.Beneficiarios.Infraesctruture.Configurations;
+namespace Api.Beneficiarios.Infrastructure.Configurations;
 
 
 /// <summary>
@@ -49,12 +49,12 @@ public class BeneficiarioConfiguration : IEntityTypeConfiguration<Beneficiario>
                     .HasConversion<int>() // Armazenar enum como int
                     .IsRequired();
 
-                builder.Prperty(b => b.PlanoId)
+                builder.Property(b => b.PlanoId)
                     .HasColumnName("PlanoId")
                     .IsRequired();
 
                 builder.Property(b => b.DataCadastro)
-                    .HasComumnName("DataCadastro")
+                    .HasColumnName("DataCadastro")
                     .HasColumnType("timestamp") //Data e hora
                     .IsRequired();
 
@@ -65,7 +65,7 @@ public class BeneficiarioConfiguration : IEntityTypeConfiguration<Beneficiario>
 
 
                 builder.Property(b => b.Excluido)
-                    .HasColumnName("Exluido")
+                    .HasColumnName("Excluido")
                     .HasDefaultValue(false) // Valor padrão no banco
                     .IsRequired();
                 

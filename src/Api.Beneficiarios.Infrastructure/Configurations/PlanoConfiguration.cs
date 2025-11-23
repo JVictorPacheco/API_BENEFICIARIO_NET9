@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Api.Beneficiario.Domain.Entities;
+using Api.Beneficiarios.Domain.Entities;
 
-namespace Api.Beneficiario.Infrastructure.Configurations;
+namespace Api.Beneficiarios.Infrastructure.Configurations;
 
 /// <summary>
 /// Configuração da entidade Plano para o Entity Framework
@@ -26,18 +26,18 @@ public class PlanoConfiguration : IEntityTypeConfiguration<Plano>
             .HasColumnName("Id")
             .IsRequired();
 
-        builder.Property(p => p.Nome)
-            .HasColumnName("Nome")
+        builder.Property(p => p.NomePlano)
+            .HasColumnName("NomePlano")
             .HasMaxLength(100)
             .IsRequired();
 
-        builder.Property(p => p.CodigoRegistroANS)
-            .HasColumnName("CodigoRegistroANS")
+        builder.Property(p => p.CodRegistroAns)
+            .HasColumnName("CodRegistroAns")
             .HasMaxLength(50)
             .IsRequired();
 
-        builder.Property(p => p.Ativo)
-            .HasColumnName("Ativo")
+        builder.Property(p => p.StatusPlano)
+            .HasColumnName("StatusPlano")
             .IsRequired()
             .HasDefaultValue(true); // Valor padrão no banco
 
@@ -64,18 +64,18 @@ public class PlanoConfiguration : IEntityTypeConfiguration<Plano>
         // ========== ÍNDICES ==========
 
         // Índice único no Nome (regra: nome único no sistema)
-        builder.HasIndex(p => p.Nome)
+        builder.HasIndex(p => p.NomePlano)
             .IsUnique()
             .HasDatabaseName("IX_Planos_Nome"); // Nome do índice no banco
 
         // Índice único no CodigoRegistroANS (regra: código ANS único)
-        builder.HasIndex(p => p.CodigoRegistroANS) //
+        builder.HasIndex(p => p.CodRegistroAns) //
             .IsUnique()
-            .HasDatabaseName("IX_Planos_CodigoRegistroANS");
+            .HasDatabaseName("IX_Planos_CodRegistroANS");
 
-        // Índice no Ativo (para filtros)
-        builder.HasIndex(p => p.Ativo)
-            .HasDatabaseName("IX_Planos_Ativo");
+        // Índice no StatusPlano (para filtros)
+        builder.HasIndex(p => p.StatusPlano)
+            .HasDatabaseName("IX_Planos_StatusPlano");
 
         // Índice no Excluido (para query filter de soft delete)
         builder.HasIndex(p => p.Excluido)

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Api.Beneficiarios.Infraestructure.Data;
-using Api.Beneficiarios.Infraestructure.Repositories;
+using Api.Beneficiarios.Infrastructure.Data;
+using Api.Beneficiarios.Infrastructure.Repositories;
 using Api.Beneficiarios.Domain.Interfaces;
 
 // Program.cs serve detalhadamente para configurar e iniciar a aplicação web ASP.NET Core, incluindo serviços, middlewares, e dependências necessárias para o funcionamento da API de beneficiários.
@@ -58,7 +58,7 @@ builder.Services.AddControllers()
         );
 
         // Ignora propriedades null no JSON de resposta (deixa JSON mais limpo)
-        options.JsonSerializerOptions.DefaultIgnoredCondition =
+        options.JsonSerializerOptions.DefaultIgnoreCondition =
             System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
     });
 

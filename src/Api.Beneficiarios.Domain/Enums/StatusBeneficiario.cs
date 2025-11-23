@@ -1,4 +1,4 @@
-namespace Api.Beneficiario.Domain.Enums
+namespace Api.Beneficiarios.Domain.Enums
 {
     public enum StatusBeneficiario
     {

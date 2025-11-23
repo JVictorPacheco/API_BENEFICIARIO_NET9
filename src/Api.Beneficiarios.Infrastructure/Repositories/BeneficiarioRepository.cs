@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using Api.Beneficiario.Domain.Entities;
-using Api.Beneficiario.Domain.Enums;
-using Api.Beneficiario.Domain.Interfaces;
-using Api.Beneficiario.Infrastructure.Data;
+using Api.Beneficiarios.Domain.Entities;
+using Api.Beneficiarios.Domain.Enums;
+using Api.Beneficiarios.Domain.Interfaces;
+using Api.Beneficiarios.Infrastructure.Data;
 
-namespace Api.Beneficiario.Infrastructure.Repositories;
+namespace Api.Beneficiarios.Infrastructure.Repositories;
 
 
 /// <summary>
@@ -61,7 +61,7 @@ public class BeneficiarioRepository : IBeneficiarioRepository
     /// Remove um beneficiário do banco (hard delete)
     /// ATENÇÃO: Apaga permanentemente do banco!
     /// </summary>
-    public async Task<bool> RemoverBeneficiarioAsync(Guid id)
+    public async Task<bool> ExcluirBeneficiarioAsync(Guid id)
     {
         var beneficiario = await _context.Beneficiarios
             .IgnoreQueryFilters() // Precisa ignorar para pegar mesmo se excluído
@@ -115,7 +115,7 @@ public class BeneficiarioRepository : IBeneficiarioRepository
     /// Obtém todos os beneficiários (não retorna excluídos)
     /// Inclui o Plano relacionado
     /// </summary>
-    public async Task<IEnumerable<Beneficiario>> ObterTodosBeneficiarioAsync()
+    public async Task<IEnumerable<Beneficiario>> ObterTodosBeneficiariosAsync()
     {
         return await _context.Beneficiarios // refere-se à tabela Beneficiarios no banco. O contexto do EF mapeia a entidade Beneficiario para a tabela Beneficiarios
             .Include(b => b.Plano) // Aqui tras o plano porque provavelmente será usado
@@ -133,7 +133,7 @@ public class BeneficiarioRepository : IBeneficiarioRepository
         return await _context.Beneficiarios
             .Include(b => b.Plano)
             .Where(b => b.Status == status)
-            .OrderBy(b => b.NomeCompleto)
+            .OrderBy(b => b.Nome)
             .ToListAsync();
     }
 
@@ -146,7 +146,7 @@ public class BeneficiarioRepository : IBeneficiarioRepository
         return await _context.Beneficiarios
             .Include(b => b.Plano)
             .Where(b => b.PlanoId == planoId)
-            .OrderBy(b => b.NomeCompleto)
+            .OrderBy(b => b.Nome)
             .ToListAsync();
     }
 

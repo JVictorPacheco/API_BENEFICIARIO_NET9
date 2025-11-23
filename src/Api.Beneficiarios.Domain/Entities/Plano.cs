@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 
-namespace Api.Beneficiario.Domais.Entities;
+namespace Api.Beneficiarios.Domain.Entities;
 
 
 /// <summary>
@@ -25,7 +25,7 @@ public class Plano : BaseEntity
     /// </summary>
     [Required (ErrorMessage = "Código de registro ANS é obrigatório")]
     [MaxLength(10, ErrorMessage = "Código de registro ANS deve ter no máximo 10 caracteres")]
-    public string codRegistroAns {get; set;}
+    public string CodRegistroAns {get; set;}
 
 
     /// <summary>
