@@ -30,7 +30,8 @@ public interface IBeneficiarioRepository
     );
 
 
-    // Task<bool> ExistePorCPFAsync(string cpf);
+    Task<bool> ExisteBeneficiarioPorCPFAsync(string cpf);
+    
     // Task<bool> ExistePorCPFAsync(string cpf, Guid idExcluir); // Para update
-    // Task<Beneficiario?> ObterPorCPFAsync(string cpf);
+    Task<Beneficiario?> ObterPorCPFAsync(string cpf);
 }
