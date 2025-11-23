@@ -6,15 +6,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A1B2C3D4-E5F6-7890-1234-567890ABCDEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Beneficiario.Domain", "src\Api.Beneficiario.Domain\Api.Beneficiario.Domain.csproj", "{11111111-1111-1111-1111-111111111111}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Beneficiarios.Domain", "src\Api.Beneficiarios.Domain\Api.Beneficiarios.Domain.csproj", "{11111111-1111-1111-1111-111111111111}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Beneficiario.Application", "src\Api.Beneficiario.Application\Api.Beneficiario.Application.csproj", "{22222222-2222-2222-2222-222222222222}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Beneficiarios.Application", "src\Api.Beneficiarios.Application\Api.Beneficiarios.Application.csproj", "{22222222-2222-2222-2222-222222222222}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Beneficiario.Infrastructure", "src\Api.Beneficiario.Infrastructure\Api.Beneficiario.Infrastructure.csproj", "{33333333-3333-3333-3333-333333333333}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Beneficiarios.Infrastructure", "src\Api.Beneficiarios.Infrastructure\Api.Beneficiarios.Infrastructure.csproj", "{33333333-3333-3333-3333-333333333333}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Beneficiario.WebAPI", "src\Api.Beneficiario.WebAPI\Api.Beneficiario.WebAPI.csproj", "{44444444-4444-4444-4444-444444444444}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Beneficiarios.WebAPI", "src\Api.Beneficiarios.WebAPI\Api.Beneficiarios.WebAPI.csproj", "{44444444-4444-4444-4444-444444444444}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Beneficiario.Tests.Unit", "tests\Api.Beneficiario.Tests.Unit\Api.Beneficiario.Tests.Unit.csproj", "{55555555-5555-5555-5555-555555555555}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Beneficiarios.Tests.Unit", "tests\Api.Beneficiarios.Tests.Unit\Api.Beneficiarios.Tests.Unit.csproj", "{55555555-5555-5555-5555-555555555555}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
