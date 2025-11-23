@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Api.Beneficiarios.Infrastructure.Data;
 using Api.Beneficiarios.Infrastructure.Repositories;
 using Api.Beneficiarios.Domain.Interfaces;
+using Api.Beneficiarios.Application.Services;
+using Api.Beneficiarios.Application.Services.Interfaces;
 
 // Program.cs serve detalhadamente para configurar e iniciar a aplicação web ASP.NET Core, incluindo serviços, middlewares, e dependências necessárias para o funcionamento da API de beneficiários.
 
@@ -42,7 +44,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IBeneficiarioRepository, BeneficiarioRepository>(); // Nessa linha de código, o repositório IBeneficiarioRepository está sendo registrado com uma implementação concreta BeneficiarioRepository no contêiner de injeção de dependência. O tempo de vida do repositório é definido como "Scoped", o que significa que uma nova instância do repositório será criada para cada solicitação HTTP. Isso é útil para garantir que os dados específicos da solicitação sejam mantidos isolados entre diferentes solicitações.
 
 // Registra services com lifetime Scoped (uma instância por request HTTP)
-// builder.Services.AddScoped<IBeneficiarioService, BeneficiarioService>(); // Nessa linha de codigo, o serviço IBeneficiarioService está sendo registrado com uma implementação concreta BeneficiarioService no contêiner de injeção de dependência. O tempo de vida do serviço é definido como "Scoped", o que significa que uma nova instância do serviço será criada para cada solicitação HTTP. Isso é útil para garantir que os dados específicos da solicitação sejam mantidos isolados entre diferentes solicitações.
+builder.Services.AddScoped<IBeneficiarioService, BeneficiarioService>();
 
 
 // ========== CONFIGURAÇÃO DE CONTROLLERS ==========

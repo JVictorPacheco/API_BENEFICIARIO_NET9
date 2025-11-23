@@ -5,7 +5,7 @@ using Api.Beneficiarios.Domain.Enums;
 using Api.Beneficiarios.Domain.Interfaces;
 
 
-namespace Api.Beneficiarios.Application;
+namespace Api.Beneficiarios.Application.Services;
 
 
 // <summary>
@@ -15,8 +15,11 @@ public class BeneficiarioService : IBeneficiarioService
 {
     private readonly IBeneficiarioRepository _beneficiarioRepository;
 
+    // CONSTRUTOR: recebe o Repository via Injeção de Dependência
+    // O .NET injeta automaticamente quando cria uma instância do Service
     public BeneficiarioService(IBeneficiarioRepository beneficiarioRepository)
     {
+        // Guarda o repository recebido na variável de instância
         _beneficiarioRepository = beneficiarioRepository;
     }
 
@@ -31,7 +34,7 @@ public class BeneficiarioService : IBeneficiarioService
         // Cria a entidade a partir do DTO
         var beneficiario = new Beneficiario
         {
-            Nome = dto.NomeCompleto,
+            Nome = dto.Nome,
             CPF = dto.CPF,
             DataNascimento = dto.DataNascimento,
             PlanoId = dto.PlanoId,
@@ -47,7 +50,7 @@ public class BeneficiarioService : IBeneficiarioService
     }
 
 
-    public async Task<BeneficiarioResponseDto?> ObterPorIdAsync(Guid id)
+    public async Task<BeneficiarioResponseDto?> ObterBeneficiarioPorIdAsync(Guid id)
     {
         var beneficiario = await _beneficiarioRepository.ObterBeneficiarioPorIdAsync(id);
         
@@ -57,14 +60,19 @@ public class BeneficiarioService : IBeneficiarioService
         return MapearParaDto(beneficiario);
     }
 
+    // Recebe filtros opcionais (status e planoId) e retorna lista de DTOs
     public async Task<IEnumerable<BeneficiarioResponseDto>> ObterTodosBeneficiariosAsync(string? status, Guid? planoId)
     {
-        IEnumerable<Beneficiario> beneficiarios;
+        // Variável para guardar os beneficiários encontrados
+        IEnumerable<Beneficiario> beneficiarios; 
 
-        // Converte string status para enum (se fornecido)
+        // Converte a string "status" para o enum StatusBeneficiario
         StatusBeneficiario? statusEnum = null;
+        // Se o status foi informado (não é null ou vazio)
         if (!string.IsNullOrEmpty(status))
         {
+            // Tenta converter a string para enum (ex: "Ativo" → StatusBeneficiario.Ativo)
+            // O "true" ignora maiúsculas/minúsculas
             if (Enum.TryParse<StatusBeneficiario>(status, true, out var parsed))
                 statusEnum = parsed;
         }
@@ -72,7 +80,7 @@ public class BeneficiarioService : IBeneficiarioService
         // Busca com filtros
         beneficiarios = await _beneficiarioRepository.ObterBeneficiarioComFiltrosAsync(statusEnum, planoId);
 
-        // Converte para DTOs
+        // Converte para DTOs/ Converte cada Entity para DTO usando Select + MapearParaDto
         return beneficiarios.Select(MapearParaDto);
     }
 
@@ -85,7 +93,7 @@ public class BeneficiarioService : IBeneficiarioService
             return null;
 
         // Atualiza os campos
-        beneficiario.Nome = dto.NomeCompleto;
+        beneficiario.Nome = dto.Nome;
         beneficiario.DataNascimento = dto.DataNascimento;
         beneficiario.PlanoId = dto.PlanoId;
 

@@ -43,12 +43,12 @@ public class PlanoConfiguration : IEntityTypeConfiguration<Plano>
 
         builder.Property(p => p.DataCadastro)
             .HasColumnName("DataCadastro")
-            .HasColumnType("timestamp")
+            .HasColumnType("timestamptz")
             .IsRequired();
 
         builder.Property(p => p.DataAtualizacao)
             .HasColumnName("DataAtualizacao")
-            .HasColumnType("timestamp")
+            .HasColumnType("timestamptz")
             .IsRequired();
 
         builder.Property(p => p.Excluido)
@@ -58,7 +58,7 @@ public class PlanoConfiguration : IEntityTypeConfiguration<Plano>
 
         builder.Property(p => p.DataExclusao)
             .HasColumnName("DataExclusao")
-            .HasColumnType("timestamp")
+            .HasColumnType("timestamptz")
             .IsRequired(false); // Nullable
 
         // ========== ÍNDICES ==========

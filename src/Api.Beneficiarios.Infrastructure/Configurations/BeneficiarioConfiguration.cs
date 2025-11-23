@@ -55,12 +55,12 @@ public class BeneficiarioConfiguration : IEntityTypeConfiguration<Beneficiario>
 
                 builder.Property(b => b.DataCadastro)
                     .HasColumnName("DataCadastro")
-                    .HasColumnType("timestamp") //Data e hora
+                    .HasColumnType("timestamptz") //Data e hora com timezone
                     .IsRequired();
 
                 builder.Property(b => b.DataAtualizacao)
                     .HasColumnName("DataAtualizacao")
-                    .HasColumnType("timestamp") //Data e hora
+                    .HasColumnType("timestamptz") //Data e hora com timezone
                     .IsRequired();
 
 
@@ -68,10 +68,10 @@ public class BeneficiarioConfiguration : IEntityTypeConfiguration<Beneficiario>
                     .HasColumnName("Excluido")
                     .HasDefaultValue(false) // Valor padrão no banco
                     .IsRequired();
-                
+
                 builder.Property(b => b.DataExclusao)
                     .HasColumnName("DataExclusao")
-                    .HasColumnType("timestamp") //Data e hora
+                    .HasColumnType("timestamptz") //Data e hora com timezone
                     .IsRequired(false); // Pode ser nulo
 
 

@@ -9,13 +9,13 @@ namespace Api.Beneficiarios.Application.Services.Interfaces;
 /// </summary>
 public interface IBeneficiarioService
 {
-    Task<BeneficiarioResponseDto> CriarBeneficiaioAsync (CreateBeneficiarioDTO dto);
+    Task<BeneficiarioResponseDto> CriarBeneficiariosAsync(CreateBeneficiarioDto dto);
 
-    Task<BeneficiarioResponseDto?> ObterBeneficiarioPorIdAsync (Guid Id); // 
+    Task<BeneficiarioResponseDto?> ObterBeneficiarioPorIdAsync(Guid id);
 
-    Task <IEnumerable<BeneficiarioResponseDto>> ObterTodosBeneficiariosAsync (string? status, Guid? planoId);
+    Task<IEnumerable<BeneficiarioResponseDto>> ObterTodosBeneficiariosAsync(string? status, Guid? planoId);
 
-    Task<BeneficiarioResponseDto?> AtualizarAsync(Guid id, UpdateBeneficiarioDTO dto);
+    Task<BeneficiarioResponseDto?> AtualizarBeneficiarioAsync(Guid id, UpdateBeneficiarioDto dto);
 
-    Task<bool> ExcluirBeneficiarioAsync (Guid Id);
+    Task<bool> ExcluirBeneficiarioSuavementeAsync(Guid id);
 }

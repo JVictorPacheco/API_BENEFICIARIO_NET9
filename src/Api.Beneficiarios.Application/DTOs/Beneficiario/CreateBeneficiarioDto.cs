@@ -8,7 +8,7 @@ namespace Api.Beneficiarios.Application.DTOs.Beneficiario;
 /// DTO para criação de um novo beneficiário.
 /// Contém apenas os campos necessários para cadastro.
 /// </summary>
-public class CreateBeneficiarioDTO 
+public class CreateBeneficiarioDto 
 {
 
     [Required(ErrorMessage = "Nome completo é obrigatório")]

@@ -8,7 +8,7 @@ namespace Api.Beneficiarios.Application.DTOs.Beneficiario;
 /// Permite atualizar nome, data de nascimento, status e plano.
 /// CPF não pode ser alterado (identificador único do beneficiário).
 /// </summary>
-public class UpdateBeneficiarioDTO
+public class UpdateBeneficiarioDto
 {
     [Required(ErrorMessage = "Nome completo é obrigatório")]
     [StringLength(150, MinimumLength = 3, ErrorMessage = "Nome deve ter entre 3 e 150 caracteres")]
