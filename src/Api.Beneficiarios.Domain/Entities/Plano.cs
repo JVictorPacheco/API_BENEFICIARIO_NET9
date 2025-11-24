@@ -12,7 +12,7 @@ public class Plano : BaseEntity
 
 
     [Required (ErrorMessage = "Código de registro ANS é obrigatório")]
-    [MaxLength(10, ErrorMessage = "Código de registro ANS deve ter no máximo 10 caracteres")]
+    [MaxLength(50, ErrorMessage = "Código de registro ANS deve ter no máximo 50 caracteres")]
     public string CodRegistroAns {get; set;}
 
 
