@@ -1,7 +1,3 @@
-# O primeiro serviço é a API .NET 9 em modo de produção. ele é construído a partir do 
-#Dockerfile na raiz do projeto, usando o estágio "runtime". A API escuta na porta 5000 e 
-#depende do serviço PostgreSQL para o banco de dados. As variáveis de ambiente configuram 
-#o ambiente como "Production" e definem a string de conexão do banco de dados.
 services:
   # API .NET 9 - Production
   api:
@@ -22,11 +18,7 @@ services:
       - beneficiario-network
     restart: always
 
- # Esse serviço configura um contêiner PostgreSQL usando a imagem oficial "postgres:16-alpine". 
- #Ele mapeia a porta padrão 5432, define variáveis de ambiente para o nome do banco de dados, 
- #usuário e senha, e monta um volume para persistência dos dados. Também inclui uma verificação de integridade para garantir 
- #que o banco de dados esteja pronto antes que a API tente se conectar.
- # já é uma imagem oficial do PostgreSQL otimizada para tamanho com Alpine Linux. Que já tem no dockerhub. Portanto ele não foi criadno no docker file, igual a api
+ 
 # PostgreSQL Database
   postgres:
     image: postgres:16-alpine
