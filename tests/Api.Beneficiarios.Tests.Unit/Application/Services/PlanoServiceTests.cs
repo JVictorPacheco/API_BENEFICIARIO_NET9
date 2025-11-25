@@ -22,7 +22,7 @@ public class PlanoServiceTests
     [Fact]
     public async Task CriarPlanoAsync_DeveRetornarPlano_QuandoDadosValidos()
     {
-        // Arrange
+        
         var dto = new CreatePlanoDto
         {
             NomePlano = "Plano Ouro",
@@ -51,10 +51,10 @@ public class PlanoServiceTests
             .Setup(r => r.AdicionarPlanoAsync(It.IsAny<Plano>()))
             .ReturnsAsync(planoEsperado);
 
-        // Act
+        
         var resultado = await _planoService.CriarPlanoAsync(dto);
 
-        // Assert
+        
         resultado.Should().NotBeNull();
         resultado.NomePlano.Should().Be(dto.NomePlano);
         resultado.CodRegistroAns.Should().Be(dto.CodRegistroAns);
@@ -64,7 +64,7 @@ public class PlanoServiceTests
     [Fact]
     public async Task CriarPlanoAsync_DeveLancarExcecao_QuandoNomeDuplicado()
     {
-        // Arrange
+        
         var dto = new CreatePlanoDto
         {
             NomePlano = "Plano Ouro",
@@ -75,10 +75,10 @@ public class PlanoServiceTests
             .Setup(r => r.ExistePlanoPorNomeAsync(dto.NomePlano))
             .ReturnsAsync(true);
 
-        // Act
+        
         var act = async () => await _planoService.CriarPlanoAsync(dto);
 
-        // Assert
+        
         await act.Should()
             .ThrowAsync<InvalidOperationException>()
             .WithMessage("Já existe um plano com este nome");
@@ -87,7 +87,7 @@ public class PlanoServiceTests
     [Fact]
     public async Task CriarPlanoAsync_DeveLancarExcecao_QuandoCodAnsDuplicado()
     {
-        // Arrange
+       
         var dto = new CreatePlanoDto
         {
             NomePlano = "Plano Ouro",
@@ -102,10 +102,10 @@ public class PlanoServiceTests
             .Setup(r => r.ExistePlanoPorCodAnsAsync(dto.CodRegistroAns))
             .ReturnsAsync(true);
 
-        // Act
+        
         var act = async () => await _planoService.CriarPlanoAsync(dto);
 
-        // Assert
+        
         await act.Should()
             .ThrowAsync<InvalidOperationException>()
             .WithMessage("Já existe um plano com este código ANS");
@@ -114,7 +114,7 @@ public class PlanoServiceTests
     [Fact]
     public async Task ObterPlanoPorIdAsync_DeveRetornarPlano_QuandoExiste()
     {
-        // Arrange
+        
         var planoId = Guid.NewGuid();
         var plano = new Plano
         {
@@ -130,10 +130,10 @@ public class PlanoServiceTests
             .Setup(r => r.ObterPlanoPorIdAsync(planoId))
             .ReturnsAsync(plano);
 
-        // Act
+        
         var resultado = await _planoService.ObterPlanoPorIdAsync(planoId);
 
-        // Assert
+        
         resultado.Should().NotBeNull();
         resultado!.Id.Should().Be(planoId);
         resultado.NomePlano.Should().Be("Plano Prata");
@@ -142,24 +142,24 @@ public class PlanoServiceTests
     [Fact]
     public async Task ObterPlanoPorIdAsync_DeveRetornarNull_QuandoNaoExiste()
     {
-        // Arrange
+        
         var planoId = Guid.NewGuid();
 
         _planoRepositoryMock
             .Setup(r => r.ObterPlanoPorIdAsync(planoId))
             .ReturnsAsync((Plano?)null);
 
-        // Act
+        
         var resultado = await _planoService.ObterPlanoPorIdAsync(planoId);
 
-        // Assert
+      
         resultado.Should().BeNull();
     }
 
     [Fact]
     public async Task ObterTodosPlanosAsync_DeveRetornarListaDePlanos()
     {
-        // Arrange
+       
         var planos = new List<Plano>
         {
             new Plano { Id = Guid.NewGuid(), NomePlano = "Plano Bronze", CodRegistroAns = "ANS-001", StatusPlano = true },
@@ -171,17 +171,17 @@ public class PlanoServiceTests
             .Setup(r => r.ObterTodosPlanosAsync())
             .ReturnsAsync(planos);
 
-        // Act
+        
         var resultado = await _planoService.ObterTodosPlanosAsync();
 
-        // Assert
+        
         resultado.Should().HaveCount(3);
     }
 
     [Fact]
     public async Task AtualizarPlanoAsync_DeveAtualizarPlano_QuandoExiste()
     {
-        // Arrange
+        
         var planoId = Guid.NewGuid();
         var planoExistente = new Plano
         {
@@ -207,10 +207,10 @@ public class PlanoServiceTests
             .Setup(r => r.AtualizarPlanoAsync(It.IsAny<Plano>()))
             .ReturnsAsync((Plano p) => p);
 
-        // Act
+      
         var resultado = await _planoService.AtualizarPlanoAsync(planoId, dto);
 
-        // Assert
+        
         resultado.Should().NotBeNull();
         resultado!.NomePlano.Should().Be("Plano Novo");
         resultado.StatusPlano.Should().BeFalse();
@@ -219,7 +219,7 @@ public class PlanoServiceTests
     [Fact]
     public async Task AtualizarPlanoAsync_DeveRetornarNull_QuandoPlanoNaoExiste()
     {
-        // Arrange
+        
         var planoId = Guid.NewGuid();
         var dto = new UpdatePlanoDto { NomePlano = "Novo Nome" };
 
@@ -227,17 +227,17 @@ public class PlanoServiceTests
             .Setup(r => r.ObterPlanoPorIdAsync(planoId))
             .ReturnsAsync((Plano?)null);
 
-        // Act
+        
         var resultado = await _planoService.AtualizarPlanoAsync(planoId, dto);
 
-        // Assert
+        
         resultado.Should().BeNull();
     }
 
     [Fact]
     public async Task ExcluirPlanoSuavementeAsync_DeveExcluir_QuandoNaoTemBeneficiarios()
     {
-        // Arrange
+        
         var planoId = Guid.NewGuid();
 
         _planoRepositoryMock
@@ -248,27 +248,27 @@ public class PlanoServiceTests
             .Setup(r => r.ExcluirPlanoSuavementeAsync(planoId))
             .ReturnsAsync(true);
 
-        // Act
+        
         var resultado = await _planoService.ExcluirPlanoSuavementeAsync(planoId);
 
-        // Assert
+        
         resultado.Should().BeTrue();
     }
 
     [Fact]
     public async Task ExcluirPlanoSuavementeAsync_DeveLancarExcecao_QuandoTemBeneficiarios()
     {
-        // Arrange
+        
         var planoId = Guid.NewGuid();
 
         _planoRepositoryMock
             .Setup(r => r.PlanoTemBeneficiariosAsync(planoId))
             .ReturnsAsync(true);
 
-        // Act
+        
         var act = async () => await _planoService.ExcluirPlanoSuavementeAsync(planoId);
 
-        // Assert
+       
         await act.Should()
             .ThrowAsync<InvalidOperationException>()
             .WithMessage("Não é possível excluir um plano que possui beneficiários vinculados");
