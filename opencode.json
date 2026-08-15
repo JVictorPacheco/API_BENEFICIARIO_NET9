@@ -1,0 +1,56 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode-go/deepseek-v4-flash",
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "description": "Documentação atualizada de bibliotecas (.NET, React, EF Core, MediatR, etc.)",
+      "enabled": true
+    },
+    "microsoft-learn": {
+      "type": "remote",
+      "url": "https://mcp.microsoft.com/learn",
+      "description": "Documentação oficial Microsoft: ASP.NET Core, EF Core, C#",
+      "enabled": true
+    },
+    "dotnet-context": {
+      "type": "local",
+      "command": ["npx", "dotnet-context-mcp@0.2.0"],
+      "description": "Analisa solução .NET com Roslyn: DbContexts, entidades, migrations, DI",
+      "enabled": true
+    }
+  },
+  "agent": {
+    "spec": {
+      "mode": "primary",
+      "model": "opencode-go/deepseek-v4-flash",
+      "description": "Cria specs SDD",
+      "temperature": 0.2,
+      "permission": {
+        "edit": "allow",
+        "bash": "deny"
+      }
+    },
+    "build-backend": {
+      "mode": "primary",
+      "model": "opencode-go/qwen3.7-plus",
+      "description": "Implementa C#, .NET, EF Core, CQRS (tarefas complexas)",
+      "temperature": 0.1,
+      "permission": {
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "review": {
+      "mode": "subagent",
+      "model": "opencode-go/deepseek-v4-pro",
+      "description": "Revisão de código, segurança e boas práticas",
+      "temperature": 0.1,
+      "permission": {
+        "edit": "deny",
+        "bash": "deny"
+      }
+    }
+  }
+}
