@@ -104,8 +104,8 @@ builder.Services.AddControllers()
 
 
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+builder.Services.AddEndpointsApiExplorer();   // Adiciona o suporte para explorar os endpoints da API, necessário para o Swagger
+builder.Services.AddSwaggerGen(c => // Adiciona o Swagger para documentação da API
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
@@ -155,6 +155,12 @@ if (app.Environment.IsDevelopment())
         });
 }
 
+// O app. Alguma coisa é a instância do WebApplication que representa a aplicação web em execução. Ele é criado a partir do 
+// builder e é usado
+
+// para configurar a pipeline de requisições, middlewares e rotas da aplicação antes de iniciar a execução do servidor web. 
+// Aqui, estamos adicionando middlewares e configurando a pipeline de requisições da aplicação.
+
 app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseSerilogRequestLogging();
 app.UseCors("AllowAll"); 
@@ -175,5 +181,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
-app.Run();
+// Abaixo Inicia a execução do servidor web e começa a escutar as requisições HTTP. A aplicação estará pronta para receber e 
+// processar as requisições dos clientes.
+app.Run(); 
 
